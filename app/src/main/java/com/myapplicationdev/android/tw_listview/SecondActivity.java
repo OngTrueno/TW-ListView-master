@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ public class SecondActivity extends AppCompatActivity {
     ArrayAdapter aa;
     ArrayList<Module> module;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,17 +29,26 @@ public class SecondActivity extends AppCompatActivity {
         lv = (ListView) this.findViewById(R.id.lvModules);
         tvYear = (TextView) findViewById(R.id.tvYear);
 
+        Intent i = getIntent();
+        String year = i.getStringExtra("year");
+        tvYear.setText(year);
+
         module = new ArrayList<Module>();
-        module.add(new Module("C208", true));
-        module.add(new Module("C200", false));
-        module.add(new Module("C346", true));
+        if(year.equalsIgnoreCase("Year 2")) {
+            module.add(new Module("C208", true));
+            module.add(new Module("C200", false));
+            module.add(new Module("C346", true));
+
+        }else if(year.equalsIgnoreCase("Year 1")){
+            module.add(new Module("C105 Programming", true));
+        }
+
+
+
 
         aa = new ModuleAdapter(this, R.layout.module, module);
         lv.setAdapter(aa);
 
-        Intent i = getIntent();
-        String year = i.getStringExtra("year");
-        tvYear.setText(year);
 
 
 
